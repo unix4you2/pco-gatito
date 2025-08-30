@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Aventuras del Gatito - Juego de Plataformas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Start Screen -->
+        <div id="startScreen" class="screen">
+            <div class="title-container">
+                <h1 class="game-title">🐱 Aventuras del Gatito 🐱</h1>
+                <p class="game-subtitle">¡Salta, corre y recoge todos los regalos!</p>
+                <div class="cat-animation">
+                    <div class="bouncing-cat">🐱</div>
+                </div>
+                <div class="audio-controls-start">
+                    <button class="btn btn--outline audio-toggle" id="musicToggleStart" onclick="toggleMusic()">
+                        🎵 Música
+                    </button>
+                    <button class="btn btn--outline audio-toggle" id="soundToggleStart" onclick="toggleSound()">
+                        🔊 Sonidos
+                    </button>
+                </div>
+                <button class="btn btn--primary btn--lg start-btn" onclick="showLevelSelect()">
+                    🎮 ¡Jugar!
+                </button>
+            </div>
+        </div>
+
+        <!-- Level Selection Screen -->
+        <div id="levelSelectScreen" class="screen hidden">
+            <div class="level-select-container">
+                <h2 class="level-title">Selecciona el Nivel</h2>
+                <div class="levels-grid">
+                    <div class="level-card" data-level="1">
+                        <div class="level-number">1</div>
+                        <div class="level-name">Jardín de Aventuras</div>
+                        <div class="level-stars">
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                        </div>
+                    </div>
+                    <div class="level-card locked" data-level="2">
+                        <div class="level-number">2</div>
+                        <div class="level-name">Sendero del Bosque</div>
+                        <div class="level-stars">
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                        </div>
+                    </div>
+                    <div class="level-card locked" data-level="3">
+                        <div class="level-number">3</div>
+                        <div class="level-name">Desafío de Montaña</div>
+                        <div class="level-stars">
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                        </div>
+                    </div>
+                    <div class="level-card locked" data-level="4">
+                        <div class="level-number">4</div>
+                        <div class="level-name">Patio del Castillo</div>
+                        <div class="level-stars">
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                        </div>
+                    </div>
+                    <div class="level-card locked" data-level="5">
+                        <div class="level-number">5</div>
+                        <div class="level-name">Templo del Cielo</div>
+                        <div class="level-stars">
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                        </div>
+                    </div>
+                    <div class="level-card locked" data-level="6">
+                        <div class="level-number">6</div>
+                        <div class="level-name">Parque de Perros</div>
+                        <div class="level-stars">
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                        </div>
+                    </div>
+                    <div class="level-card locked" data-level="7">
+                        <div class="level-number">7</div>
+                        <div class="level-name">Jungla Salvaje</div>
+                        <div class="level-stars">
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                        </div>
+                    </div>
+                    <div class="level-card locked" data-level="8">
+                        <div class="level-number">8</div>
+                        <div class="level-name">Castillo Final</div>
+                        <div class="level-stars">
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn--secondary" onclick="showStartScreen()">
+                    🏠 Volver al Inicio
+                </button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="screen hidden">
+            <div class="game-hud">
+                <div class="hud-left">
+                    <div class="lives-display">
+                        <span class="hud-label">Vidas:</span>
+                        <div class="hearts">
+                            <span class="heart">❤️</span>
+                            <span class="heart">❤️</span>
+                            <span class="heart">❤️</span>
+                        </div>
+                    </div>
+                    <div class="gifts-display">
+                        <span class="hud-label">Regalos:</span>
+                        <span class="gifts-count">0</span>/<span class="gifts-total">0</span>
+                    </div>
+                </div>
+                <div class="hud-center">
+                    <div class="level-display">Nivel <span class="current-level">1</span></div>
+                </div>
+                <div class="hud-right">
+                    <div class="audio-controls-game">
+                        <button class="btn btn--sm btn--outline audio-toggle" id="musicToggleGame" onclick="toggleMusic()">
+                            🎵
+                        </button>
+                        <button class="btn btn--sm btn--outline audio-toggle" id="soundToggleGame" onclick="toggleSound()">
+                            🔊
+                        </button>
+                    </div>
+                    <button class="btn btn--sm btn--outline pause-btn" onclick="togglePause()">
+                        ⏸️ Pausa
+                    </button>
+                </div>
+            </div>
+            <div class="canvas-container">
+                <canvas id="gameCanvas"></canvas>
+            </div>
+            <div class="game-controls">
+                <div class="desktop-controls">
+                    <p>🎮 Controles: Flechas para mover, Espacio o ↑ para saltar</p>
+                </div>
+                <div class="touch-controls" id="touchControls">
+                    <button class="touch-btn touch-left" id="touchLeft">⬅️</button>
+                    <button class="touch-btn touch-right" id="touchRight">➡️</button>
+                    <button class="touch-btn touch-jump" id="touchJump">⬆️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level Complete Screen -->
+        <div id="levelCompleteScreen" class="screen hidden">
+            <div class="complete-container">
+                <h2 class="complete-title">¡Nivel Completado! 🎉</h2>
+                <div class="stars-earned">
+                    <div class="star-display">
+                        <span class="big-star">⭐</span>
+                        <span class="big-star">⭐</span>
+                        <span class="big-star">⭐</span>
+                    </div>
+                    <p class="stars-text">¡Obtuviste <span class="earned-stars">3</span> estrellas!</p>
+                </div>
+                <div class="complete-stats">
+                    <p>Regalos recolectados: <span class="final-gifts">0</span>/<span class="final-total">0</span></p>
+                </div>
+                <div class="complete-buttons">
+                    <button class="btn btn--primary" onclick="nextLevel()">
+                        ➡️ Siguiente Nivel
+                    </button>
+                    <button class="btn btn--secondary" onclick="restartLevel()">
+                        🔄 Repetir Nivel
+                    </button>
+                    <button class="btn btn--outline" onclick="showLevelSelect()">
+                        📋 Seleccionar Nivel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameOverScreen" class="screen hidden">
+            <div class="gameover-container">
+                <h2 class="gameover-title">¡Se acabaron las vidas! 😿</h2>
+                <p class="gameover-text">¡No te preocupes, puedes intentarlo de nuevo!</p>
+                <div class="gameover-buttons">
+                    <button class="btn btn--primary" onclick="restartLevel()">
+                        🔄 Reintentar
+                    </button>
+                    <button class="btn btn--secondary" onclick="showLevelSelect()">
+                        📋 Seleccionar Nivel
+                    </button>
+                    <button class="btn btn--outline" onclick="showStartScreen()">
+                        🏠 Inicio
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pause Screen -->
+        <div id="pauseScreen" class="screen hidden">
+            <div class="pause-container">
+                <h2 class="pause-title">⏸️ Juego en Pausa</h2>
+                <div class="pause-buttons">
+                    <button class="btn btn--primary" onclick="togglePause()">
+                        ▶️ Continuar
+                    </button>
+                    <button class="btn btn--secondary" onclick="restartLevel()">
+                        🔄 Reiniciar Nivel
+                    </button>
+                    <button class="btn btn--outline" onclick="showLevelSelect()">
+                        📋 Seleccionar Nivel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
