@@ -1,6 +1,6 @@
 # Aventuras del Gatito
 
-**Aventuras del Gatito** es un juego de plataformas tipo Mario Bros, pensado para niños y familias, compatible con computadoras y dispositivos móviles. El protagonista es un gato que salta y supera obstáculos mientras recoge regalos y premios en ocho mundos coloridos.
+**Aventuras del Gatito** es un juego de plataformas, pensado para niños y familias, compatible con computadoras y dispositivos móviles. El protagonista es un gato "Peter" que salta y supera obstáculos mientras recoge regalos y premios en ocho mundos coloridos evitando algunos enemigos como los gatitos del vecino y otros.
 
 ## Características principales
 
